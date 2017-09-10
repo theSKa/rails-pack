@@ -1,0 +1,26 @@
+default: &default
+  adapter: <%= ENV['DB_ADAPTER'] ||= 'postgresql' %>
+  encoding: unicode
+  host:     <%= ENV['DB_HOST']%>
+  database: startpack
+  pool:     25
+  username: <%=ENV['DB_USER']%>
+  password:  <%=ENV['DB_PASS']%>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: startpack_dev
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: startpack_test
+
+production:
+  url: <%= ENV['DATABASE_URL'] %>
+
+
